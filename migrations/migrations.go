@@ -1,5 +1,10 @@
 package migrations
 
+import (
+	"io/ioutil"
+	"regexp"
+)
+
 type Migration struct {
 	timestamp string
 	name      string
@@ -15,10 +20,9 @@ func (m *Migration) Run(target string) (string, error) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Printf("ls: %q\n", out.String())
-	return "", nil
 }
 
-func RunMigrations(target string) (*Migration, error) {
+func Run(target string) (*Migration, error) {
 	return nil, nil
 }
 
@@ -26,26 +30,29 @@ func (m *Migration) IsRun(current *Migration) (bool, error) {
 	return false, nil
 }
 
-func ListMigrations() ([]*Migration, error) {
-	//files, _ := ioutil.ReadDir("./migrations")
-	//for _, f := range files {
-	//	m, _ := regexp.MatchString("[0-9]{14}.*", f.Name())
-	//	if m && !f.IsDir() {
-	//		fmt.Println(f.Name())
-	//		Load(f.Path())
-	//	}
-	//}
-	return nil, nil
+func List() ([]*Migration, error) {
+	files, _ := ioutil.ReadDir("./test/migrations")
+	migrations := make([]*Migration, 0, len(files))
+	r, _ := regexp.Compile("([0-9]{10,14}).*")
+	for _, f := range files {
+		m := r.FindStringSubmatch(f.Name())
+		if len(m) > 0 && !f.IsDir() {
+			migration, err := Load(f.Name())
+			migrations := append(migrations, migration)
+		}
+	}
+
+	return migrations, nil
 }
 
-func LastMigration(target string) (string, error) {
+func Last(target string) (string, error) {
 	return "", nil
 }
 
-func CreateMigration(name string) (*Migration, error) {
+func Create(name string) (*Migration, error) {
 	return nil, nil
 }
 
-func LoadMigration(path string) (*Migration, error) {
+func Load(path string) (*Migration, error) {
 	return nil, nil
 }
