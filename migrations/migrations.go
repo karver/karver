@@ -15,16 +15,18 @@ func (m *Migration) Run(target string) (string, error) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Printf("ls: %q\n", out.String())
+	return "", nil
 }
 
-func Run(target string) (*Migration, error) {
+func RunMigrations(target string) (*Migration, error) {
+	return nil, nil
 }
 
 func (m *Migration) IsRun(current *Migration) (bool, error) {
-
+	return false, nil
 }
 
-func List() ([]*Migration, error) {
+func ListMigrations() ([]*Migration, error) {
 	//files, _ := ioutil.ReadDir("./migrations")
 	//for _, f := range files {
 	//	m, _ := regexp.MatchString("[0-9]{14}.*", f.Name())
@@ -33,16 +35,17 @@ func List() ([]*Migration, error) {
 	//		Load(f.Path())
 	//	}
 	//}
+	return nil, nil
 }
 
-func Last(target string) (string, error) {
-
+func LastMigration(target string) (string, error) {
+	return "", nil
 }
 
-func Create(name string) (*Migration, error) {
-
+func CreateMigration(name string) (*Migration, error) {
+	return nil, nil
 }
 
-func Load(path string) (*Migration, error) {
-
+func LoadMigration(path string) (*Migration, error) {
+	return nil, nil
 }
