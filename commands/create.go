@@ -37,5 +37,5 @@ func createCmd(c *cli.Context) {
 		os.Exit(1)
 	}
 
-	fmt.Printf("New migration: %s - %s\n", m.Name, m.Path)
+	fmt.Printf("New migration: %s\n", m.Path)
 }
