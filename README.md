@@ -4,32 +4,36 @@ Karver: Filesystem migrations
 What is Karver?
 ---------------
 
-Inspired on ActiveRecord, Karver allows you to follow the same migrations pattern but against the filesystem.
+Inspired by ActiveRecord database migrations, Karver allows you to follow the same schema evolution pattern but against the filesystem.
 
-How it works?
--------------
+How does it work?
+-----------------
 
-Karver needs a list of migrations and a target path. Each migration will receive the target as its first parameter.
+Give Karver a list of migrations and a target path. Each migration will receive the target as its first parameter.
 
-For each migration, if the execution ends successfully, a mark (.karver) will be written on the target path. That mark will be used in the future in order to determine which migrations need to be run, and which ones have already been run.
+After each migration, if the execution ends successfully, a flag (with a .karver extension) will be written in the target path. The flag file will be used to determine which migrations need to be run, and which ones have already been run.
 
-If the mark doesn't exist, all migrations will be executed.
+If the flag file does not exist, all migrations will be executed in order (cronological ascending).
 
 What is it trying to solve?
 ---------------------------
 
 Karver tries to solve exactly this situation:
-You have 3 instances of a filesystem, each one in a different version (imagine a VM with 3 different versions of your software):
+
+You have 3 instances of a filesystem, each in a different state (imagine a VM with 3 different versions of your software):
 i.e.:
+
 * v1 creates /foo
 * v2 moves /foo to /bar/foo
 * v3 creates a symbolic link: /bar/foo -> /new/path/foo
 
-How do you create a single package able to upgrade from v1 and from v2, to v3? No manual intervention is allowed.
+How do you create a single package able to upgrade from v1 and from v2 to v3 (without manual intervention).
 
 Configuration management is not good enough. Introducing the needed logic for this situation can create a real spaghetti monster.
+
 Instead, Karver allows you to create an executable for each step (a simple bash script?), and run them only when needed based on the starting point.
-If executed against v1, it would run migrations for v1 -> v2 and v2 -> v3. If executed against v2, only v2 -> v3 migration.
+
+If executed against v1, it would run migrations from v1 -> v2 and v2 -> v3. If executed against v2, it would only run migrations from v2 -> v3.
 
 This way, you don't need to worry about the version of your target filesystem.
 
