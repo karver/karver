@@ -1,6 +1,8 @@
 Karver: Filesystem migrations
 =============================
 
+[![Build Status](https://drone.io/github.com/karver/karver/status.png)](https://drone.io/github.com/karver/karver/latest)
+
 What is Karver?
 ---------------
 
