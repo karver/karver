@@ -38,7 +38,7 @@ func statusCmd(c *cli.Context) {
 	if last := migrations.Last(list, timestamp); last != nil {
 		fmt.Printf("Last migration executed: %s\n", last.Name)
 	} else {
-		fmt.Printf("No migration executed\n")
+		fmt.Printf("No migration executed yet!\n")
 	}
 
 	fmt.Printf("Pending migrations: %d\n", len(migrations.Pending(list, timestamp)))
